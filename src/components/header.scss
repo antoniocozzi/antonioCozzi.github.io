@@ -10,6 +10,12 @@
         border-radius: 25px;
         padding: 10px 40px;
         font-size: 0.8rem;
+        white-space: nowrap;
+
+        @include phone {
+            padding: 8px 20px;
+            font-size: 0.7rem;
+        }
 
         @include small-phone {
             font-size: 0.6rem;

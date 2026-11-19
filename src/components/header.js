@@ -4,7 +4,7 @@ function Header() {
     return (
         <div className='header'>
             <div className='occupation'>
-                <span>Frontend Dev</span>
+                <span>Software Engineer</span>
             </div>
             <hr></hr>
             <div className='year'>

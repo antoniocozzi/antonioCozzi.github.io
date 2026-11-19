@@ -12,8 +12,12 @@
             color: #ADFF00;
         }
 
+        overflow-wrap: anywhere;
+
+        // The address is one long unbreakable word in a very wide font:
+        // size it to the viewport so it fits on one line down to 320px.
         @include phone {
-            font-size: 1rem;
+            font-size: clamp(0.65rem, 3.4vw, 1rem);
         }
     }
 }

@@ -2,6 +2,14 @@ $phone-width: 320px;
 $tablet-width: 820px;
 $desktop-width: 1024px;
 
+// Phone type scale. Stretch Pro is very wide, so phone text scales with the
+// viewport: 375px (iPhone SE) gets ~15.5px body text, 320px ~15px.
+$phone-text: clamp(0.95rem, 4.2vw, 1.2rem);
+$phone-text-line: 1.5;
+$phone-title: clamp(1.3rem, 6.8vw, 1.6rem);
+$phone-small: clamp(0.75rem, 3.4vw, 0.9rem);
+$phone-chip: clamp(0.85rem, 3.8vw, 1rem);
+
 @mixin small-phone {
     @media (max-width: #{$phone-width}) {
         @content;
@@ -9,7 +17,7 @@ $desktop-width: 1024px;
 }
 
 @mixin phone {
-    @media (min-width: #{$phone-width}) and (max-width: #{$tablet-width - 1px}) {
+    @media (max-width: #{$tablet-width - 1px}) {
         @content;
     }
 }

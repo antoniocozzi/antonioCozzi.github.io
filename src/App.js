@@ -13,10 +13,11 @@ function App() {
   const [scroll, setScroll] = useState(false);
 
   useEffect(() => {
-    window.addEventListener('scroll', () => {
-      setScroll(window.scrollY > 50)
-    })
-  }, [scroll])
+    const onScroll = () => setScroll(window.scrollY > 50);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [])
 
   return (
     <>
@@ -32,7 +33,7 @@ function App() {
         </section>
         <section>
           <Section isStarEmpty title={'Proffile'}>
-            <p><span className='highlight'>Mobile</span> & <span className='highlight'>web developer</span>. I like to experiment and try all out in <span className='highlight'>digital com&zwnj;munications</span>. I love learning new technologies. I worked as a <span className='highlight'>videomaker</span>, <span className='highlight'>video animator</span> and <span className='highlight'>UI designer</span>, that al&zwnj;lowed me to gain knowledge with the Adobe suite.</p>
+            <p><span className='highlight'>Mobile</span> & <span className='highlight'>web developer</span>. I like to experiment and try all out in <span className='highlight'>digital com&zwnj;munications</span>. I love learning new technologies. I'm strongly <span className='highlight'>AI-oriented</span>: I work with AI daily, both building <span className='highlight'>LLM-powered</span> features and using <span className='highlight'>AI agents</span> in my development workflow. I worked as a <span className='highlight'>videomaker</span>, <span className='highlight'>video animator</span> and <span className='highlight'>UI designer</span>, that al&zwnj;lowed me to gain knowledge with the Adobe suite.</p>
           </Section>
         </section>
         <section>
@@ -54,10 +55,18 @@ function App() {
         <section>
           <Section isStarEmpty title={'Work Experiencce'}>
             <WorkExperience
-              company="Docebo"
-              startYear={2021}
+              company="Skillvue"
+              role="Senior Software Engineer"
+              startYear={2026}
               endYear="Now"
-              description="Web development. Maintanance of serverles&zwnj;s projects in AWS CDK."
+              description="Full stack development of an AI-powered skills assessment platform: NestJS services, Next.js frontends, PostgreSQL & OpenSearch on AWS."
+            />
+            <WorkExperience
+              company="Docebo"
+              role="Software Engineer"
+              startYear={2021}
+              endYear={2025}
+              description="Web development. Maintenance of serverles&zwnj;s projects in AWS CDK."
             />
             <WorkExperience
               company="Softlab"
@@ -69,7 +78,7 @@ function App() {
               company="Alten"
               startYear={2018}
               endYear={2020}
-              description="Mobile & web development. Maintanance of Django BE projects."
+              description="Mobile & web development. Maintenance of Django BE projects."
             />
           </Section>
         </section>

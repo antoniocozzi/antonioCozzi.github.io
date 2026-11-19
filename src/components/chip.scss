@@ -1,3 +1,5 @@
+@import '../device-sizes.scss';
+
 .chip-container {
     border-radius: 50px;
     border: 4px solid #ADFF00;
@@ -7,6 +9,12 @@
     align-items: center;
     font-size: 1.2rem;
     padding: 0.4rem 1.6rem;
+    white-space: nowrap;
+
+    @include phone {
+        font-size: $phone-chip;
+        padding: 0.4rem 0.8rem;
+    }
 }
 
 .filled {

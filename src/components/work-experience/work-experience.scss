@@ -1,13 +1,7 @@
 @import '../../device-sizes.scss';
 
-article {
+.work-experience-container {
     margin: 1em 0;
-}
-
-.work-experience-title {
-    color: #ADFF00;
-    font-size: 1.4rem;
-    line-height: 2rem;
     display: flex;
     flex-direction: row;
 
@@ -15,23 +9,76 @@ article {
         flex-direction: column;
     }
 
-    span:first-of-type {
+    .work-experience-period {
         flex: 0.3;
+        color: #ADFF00;
+        font-size: 1.4rem;
+        line-height: 2rem;
+
+        @include phone {
+            font-size: $phone-text;
+            line-height: $phone-text-line;
+        }
     }
 
-    span:nth-child(2) {
+    .work-experience-body {
         flex: 0.7;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
     }
-}
 
-.work-experience-description {
-    margin-top: 0.6rem;
-    color: white;
-    font-size: 1.4rem;
-    line-height: 2rem;
+    .work-experience-company {
+        color: #ADFF00;
+        font-size: 1.4rem;
+        line-height: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.4rem 0.8rem;
 
-    @include phone {
-        font-size: 1.2rem;
-        line-height: 1.8rem;
+        @include phone {
+            font-size: $phone-text;
+            line-height: $phone-text-line;
+        }
+    }
+
+    .work-experience-badge {
+        background-color: #ADFF00;
+        color: #000;
+        border-radius: 50px;
+        font-size: 0.6rem;
+        line-height: 1;
+        // Stretch Pro leaves more room below the baseline than above the caps:
+        // extra top padding puts the capitals in the optical centre of the pill.
+        padding: 0.8em 1.3em 0.38em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        // Line it up with the company name's capitals, not its line box.
+        transform: translateY(-0.15em);
+    }
+
+    .work-experience-role {
+        color: #fff;
+        opacity: 0.75;
+        font-size: 1rem;
+        line-height: 1.6rem;
+
+        @include phone {
+            font-size: $phone-small;
+            line-height: $phone-text-line;
+        }
+    }
+
+    .work-experience-description {
+        margin-top: 0.4rem;
+        color: #fff;
+        font-size: 1.4rem;
+        line-height: 2rem;
+
+        @include phone {
+            font-size: $phone-text;
+            line-height: $phone-text-line;
+        }
     }
 }

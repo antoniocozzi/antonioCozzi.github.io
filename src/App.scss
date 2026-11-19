@@ -1,39 +1,87 @@
 @import './device-sizes.scss';
 
+$bg-black: #000000;
+$bg-blue: #1400ff;
+$bg-lime: #adff00;
+
 .fixed-background {
-  background: linear-gradient(224deg, #000000, #1400ff, #adff00);
+  background: linear-gradient(224deg, $bg-black, $bg-blue, $bg-lime);
+  // OKLab with extra stops: no grey band between blue and lime, no hard edge
+  // on the blue stop. Browsers without `in oklab` keep the sRGB line above.
+  background-image: linear-gradient(
+    in oklab 224deg,
+    $bg-black 0%,
+    #08004a 15%,
+    $bg-blue 42%,
+    #2448e8 55%,
+    #4a90c0 70%,
+    #86d348 88%,
+    $bg-lime 100%
+  );
   background-size: 300% 300%;
-  background-position: center center;
+  background-position: 0% 91%;
   z-index: 0;
   position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  -webkit-animation: AnimationName 23s ease infinite;
-  -moz-animation: AnimationName 23s ease infinite;
-  -o-animation: AnimationName 23s ease infinite;
-  animation: AnimationName 23s ease infinite;
+  inset: 0;
+  overflow: hidden;
+  animation: bg-sweep 18s ease-in-out infinite alternate;
+
+  // Two soft light blobs in the same palette drift over the base gradient.
+  // Prime-ish, different durations keep the mix from ever repeating exactly.
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 90vmax;
+    height: 90vmax;
+    border-radius: 50%;
+    filter: blur(60px);
+    will-change: transform;
+  }
+
+  &::before {
+    top: -30vmax;
+    left: -25vmax;
+    background: radial-gradient(in oklab circle, rgba($bg-blue, 0.85) 0%, rgba($bg-blue, 0) 65%);
+    animation: bg-drift-blue 29s ease-in-out infinite alternate;
+  }
+
+  &::after {
+    bottom: -35vmax;
+    right: -30vmax;
+    // Fading lime straight to transparent over blue reads grey: the lime blob
+    // fades through the gradient's teal-blue stop instead.
+    background: radial-gradient(in oklab circle, rgba($bg-lime, 0.55) 0%, rgba(#4a90c0, 0.3) 38%, rgba(#4a90c0, 0) 65%);
+    animation: bg-drift-lime 37s ease-in-out infinite alternate;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+
+    &::before,
+    &::after {
+      animation: none;
+    }
+  }
 }
-@-webkit-keyframes AnimationName {
-  0%{background-position:0% 91%}
-  50%{background-position:100% 10%}
-  100%{background-position:0% 91%}
+
+@keyframes bg-sweep {
+  from { background-position: 0% 91%; }
+  to   { background-position: 100% 10%; }
 }
-@-moz-keyframes AnimationName {
-  0%{background-position:0% 91%}
-  50%{background-position:100% 10%}
-  100%{background-position:0% 91%}
+
+@keyframes bg-drift-blue {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(35vw, 20vh) scale(1.15); }
+  66%  { transform: translate(10vw, 45vh) scale(0.9); }
+  100% { transform: translate(45vw, 10vh) scale(1.05); }
 }
-@-o-keyframes AnimationName {
-  0%{background-position:0% 91%}
-  50%{background-position:100% 10%}
-  100%{background-position:0% 91%}
-}
-@keyframes AnimationName {
-  0%{background-position:0% 91%}
-  50%{background-position:100% 10%}
-  100%{background-position:0% 91%}
+
+@keyframes bg-drift-lime {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(-30vw, -25vh) scale(0.9); }
+  66%  { transform: translate(-45vw, -5vh) scale(1.2); }
+  100% { transform: translate(-15vw, -40vh) scale(1); }
 }
 
 .app {
@@ -42,8 +90,7 @@
   padding: 0 6rem;
 
   @include phone {
-    padding: 0 3rem;
-    width: 100vw;
+    padding: 0 1.5rem;
   }
 }
 
@@ -65,8 +112,8 @@
   padding-bottom: 1.8rem;
 
   @include phone {
-    padding: 0 3rem;
-    padding-top: 3rem;
+    padding: 0 1.5rem;
+    padding-top: 2rem;
     padding-bottom: 1.8rem;
   }
 }
@@ -82,7 +129,7 @@ section {
   }
 
   @include phone {
-    min-height: 128vh;
+    min-height: 100svh;
   }
 }
 

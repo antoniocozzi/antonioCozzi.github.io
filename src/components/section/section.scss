@@ -2,6 +2,9 @@
 
 .section-container {
     padding-bottom: 4rem;
+    // Sections with little content (Contacts) would otherwise shrink to it
+    // and draw a shorter title rule than the others.
+    width: 100%;
 }
 
 .section-header {
@@ -12,7 +15,9 @@
 
 .section-body {
     margin-left: 2.2rem;
-    width: 50vw;
+    // 720px as before on wide screens, but grows to fill narrow desktops.
+    flex: 0 1 45rem;
+    min-width: 0;
 
     .section-title {
         margin: 0;
@@ -20,9 +25,11 @@
         font-size: 2.4rem;
         border-bottom: 4px solid white;
         padding-bottom: 1.4rem;
+        font-variant-ligatures: normal;
+        overflow-wrap: anywhere;
 
         @include phone {
-            font-size: 2rem;
+            font-size: $phone-title;
         }
     }
     p {
@@ -31,19 +38,26 @@
         line-height: 2rem;
 
         @include phone {
-            font-size: 1.2rem;
-            line-height: 1.8rem;
+            font-size: $phone-text;
+            line-height: $phone-text-line;
         }
+    }
+
+    @include tablet {
+        width: auto;
+        flex: 1;
     }
 
     @include phone {
         margin-left: 1rem;
-        width: 76vw;
+        width: auto;
+        flex: 1;
     }
 }
 
 .star-container {
     width: 100px;
+    flex-shrink: 0;
 
     @include phone {
         width: 40px;

@@ -12,7 +12,10 @@ function Skills() {
         'TS',
         'React',
         'Python',
-        'AWS'
+        'AWS',
+        'Next.js',
+        'Nest.js',
+        'Claude'
     ])
 
     return (

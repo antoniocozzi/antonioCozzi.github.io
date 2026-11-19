@@ -2,20 +2,23 @@ import './work-experience.scss';
 
 function WorkExperience({
     company,
+    role,
     startYear,
     endYear,
     description
 }) {
+    const isCurrent = endYear === 'Now';
+
     return (
-        <article>
-            <div className='work-experience-title'>
-                <span>{company}</span>
-                <span>{startYear}-{endYear}</span>
-            </div>
-            <div className='work-experience-description'>
-                <span>
-                    {description}
+        <article className={`work-experience-container${isCurrent ? ' current' : ''}`}>
+            <span className='work-experience-period'>{startYear}-{endYear}</span>
+            <div className='work-experience-body'>
+                <span className='work-experience-company'>
+                    {company}
+                    {isCurrent && <span className='work-experience-badge'>Current</span>}
                 </span>
+                {role && <span className='work-experience-role'>{role}</span>}
+                <span className='work-experience-description'>{description}</span>
             </div>
         </article>
     );
